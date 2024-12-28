@@ -14,7 +14,6 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)s:%(message)s'
 )
 
-# Connect to SQLite database
 conn = sqlite3.connect('finance_app.db', check_same_thread=False)
 c = conn.cursor()
 
