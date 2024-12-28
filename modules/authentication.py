@@ -30,7 +30,7 @@ def get_authenticator(config):
     return authenticator
 
 def authenticate_user(authenticator):
-    name, authentication_status, username = authenticator.login( 'Login', 'main')
+    name, authentication_status, username = authenticator.login( "main")
     return name, authentication_status, username
 
 def register_preauthorized_users(authenticator):
