@@ -1,0 +1,14 @@
+credentials:
+  usernames:
+    johndoe:
+      name: John Doe
+      password: "$2b$12$KIX0eC...hashedpassword..."
+    janedoe:
+      name: Jane Doe
+      password: "$2b$12$ABC0eC...hashedpassword..."
+cookie:
+  expiry_days: 30
+preauthorized:
+  emails:
+    - johndoe@example.com
+    - janedoe@example.com
