@@ -23,7 +23,6 @@ def add_expense_form(user):
                 final_subcategory = subcategory if subcategory != "None" else None
                 success, message = add_expense(user, date.strftime("%Y-%m-%d"), category, final_subcategory, amount, currency)
                 if success:
-                    # Associate tags
                     if tags:
                         c = database.conn.cursor()
                         c.execute("SELECT last_insert_rowid()")
