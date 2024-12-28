@@ -11,23 +11,62 @@ from modules.utils import (
 from modules.scheduler import start_scheduler
 import logging
 
-# Setup logging as before...
+# =========================
+# Streamlit Page Configuration
+# =========================
+st.set_page_config(page_title="Personal Finance App", layout="wide", page_icon="💰")
+
+# =========================
+# Setup Logging
+# =========================
+logging.basicConfig(
+    filename='app.log',
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s:%(message)s'
+)
 
 def main():
+    # Start the scheduler
     start_scheduler()
+    
+    # =========================
+    # Authentication Setup
+    # =========================
     config = load_config()
     authenticator = get_authenticator(config)
     name, authentication_status, username = authenticate_user(authenticator)
+    
     if 'registered_preauth_users' not in st.session_state:
         register_preauthorized_users(authenticator)
         st.session_state['registered_preauth_users'] = True
+    
     if authentication_status:
+        # Logout button
         authenticator.logout('Logout', 'sidebar')
         st.sidebar.title(f'Welcome *{name}*')
-        st.set_page_config(page_title="Personal Finance App", layout="wide", page_icon="💰")
+        
+        # =========================
+        # Streamlit App Setup
+        # =========================
+    
+        # Theme Toggle
         toggle_dark_mode()
+    
+        # Currency Settings
         set_currency(username)
-        menu = ["Dashboard", "Add Income", "Add Expense", "Manage Incomes", "Manage Expenses", "Reports", "Export Data", "Backup & Restore", "Expense Prediction"]
+    
+        # Navigation Menu
+        menu = [
+            "Dashboard",
+            "Add Income",
+            "Add Expense",
+            "Manage Incomes",
+            "Manage Expenses",
+            "Reports",
+            "Export Data",
+            "Backup & Restore",
+            "Expense Prediction"
+        ]
         choice = st.sidebar.selectbox("Menu", menu)
     
         if choice == "Dashboard":
@@ -52,7 +91,7 @@ def main():
     else:
         if authentication_status == False:
             st.error('Username/password is incorrect')
-            logging.warning(f"Failed login attempt for user.")
+            logging.warning("Failed login attempt.")
         elif authentication_status == None:
             st.warning('Please enter your username and password')
 
