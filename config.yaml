@@ -12,7 +12,3 @@ credentials:
 cookie:
   name: "finance_app_cookie"
   expiry_days: 30
-
-preauthorized:
-  emails:
-    - preauthuser@example.com
