@@ -316,6 +316,17 @@ def get_recent_transactions(user, trans_type, limit=5):
     """
     return pd.read_sql_query(query, conn, params=(user, limit))
 
+@st.cache_data(ttl=600)  # Cache for 10 minutes
+def get_recent_transactions_cached(user, trans_type, limit=1000):
+    query = f"""
+        SELECT date AS Date, category AS Category, subcategory AS Subcategory, amount AS Amount, currency AS Currency
+        FROM {trans_type}
+        WHERE user = ?
+        ORDER BY id DESC
+        LIMIT ?
+    """
+    return pd.read_sql_query(query, conn, params=(user, limit))
+
 def get_all_budgets(user):
     query = """
         SELECT category, subcategory, amount, currency 
