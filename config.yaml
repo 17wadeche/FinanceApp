@@ -1,14 +1,18 @@
 credentials:
   usernames:
     johndoe:
+      email: johndoe@example.com
       name: John Doe
-      password: "$2b$12$KIX0eC...hashedpassword..."
+      password: "$2b$12$KIXgA3O.p5wB2TQ8KJtP6u4eNj0y8Q6R0yN/4QK6hP4rQZK6wD/eK"  # Replace with actual hashed password
     janedoe:
+      email: janedoe@example.com
       name: Jane Doe
-      password: "$2b$12$ABC0eC...hashedpassword..."
+      password: "$2b$12$eC1XQ1G4F0ZqvOeJ1a1U5uQ2Z3tR5jQ6M7lS8K9mN0oP1Q2R3sT4Ue"  # Replace with actual hashed password
+
 cookie:
+  name: "finance_app_cookie"
   expiry_days: 30
+
 preauthorized:
   emails:
-    - johndoe@example.com
-    - janedoe@example.com
+    - preauthuser@example.com

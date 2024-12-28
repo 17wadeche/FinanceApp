@@ -4,8 +4,8 @@ import streamlit as st
 import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
-import os
 from dotenv import load_dotenv
+import os
 
 # Load environment variables
 load_dotenv()
