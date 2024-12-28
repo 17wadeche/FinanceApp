@@ -6,9 +6,9 @@ import yaml
 from yaml.loader import SafeLoader
 from dotenv import load_dotenv
 import os
+import logging
 import bcrypt
 
-# Load environment variables
 load_dotenv()
 
 def load_config():
@@ -25,13 +25,20 @@ def get_authenticator(config):
         config['cookie']['name'],
         st.secrets["cookie"]["key"],  # Use st.secrets for deployed apps
         config['cookie']['expiry_days']
-        # Removed config['preauthorized']
     )
     return authenticator
 
 def authenticate_user(authenticator):
-    name, authentication_status, username = authenticator.login( "main")
-    return name, authentication_status, username
+    try:
+        name, authentication_status, username = authenticator.login(
+            form_name="Login",
+            location="main"
+        )
+        logging.info(f"Authentication status for user {username}: {authentication_status}")
+        return name, authentication_status, username
+    except Exception as e:
+        logging.error(f"Error during authentication: {e}")
+        return None, False, None
 
 def register_preauthorized_users(authenticator):
     preauthorized_emails = st.secrets["preauthorized"]["emails"]  # Fetch from Streamlit secrets
